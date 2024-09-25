@@ -33,7 +33,7 @@ class disk:
             'free': free_disk_gb_rounded
             }
         
-
-print(f"CPU: {cpu.get_cpu_usage()}%")
-print(f"RAM: Currently using {ram.get_ram_stats()['used']} GB of RAM out of {ram.get_ram_stats()['total']} GB available.")
-print(f"Currently using {disk.get_disk_stats()['used']} GB of disk space out of {disk.get_disk_stats()['total']} GB available, with {disk.get_disk_stats()['free']} GB free.")
+if __name__ == "__main__":
+    print(f"CPU: {cpu.get_cpu_usage()}%")
+    print(f"RAM: Currently using {ram.get_ram_stats()['used']} GB of RAM out of {ram.get_ram_stats()['total']} GB available.")
+    print(f"Currently using {disk.get_disk_stats()['used']} GB of disk space out of {disk.get_disk_stats()['total']} GB available, with {disk.get_disk_stats()['free']} GB free.")
