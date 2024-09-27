@@ -22,8 +22,4 @@ class logger:
                 pass
 
 
-logger_instance = logger()
-
-
-for x in range(10):
-    logger_instance.append_log("test")
+## Add time stamps for the log_content param in the append_log function
