@@ -1,5 +1,6 @@
 from classes import cpu, ram, disk
 from vars import refresh_interval_per_sec
+from logger import logger
 import time, os, sys, platform
 
 def monitor_render(refresh_interval):
@@ -17,6 +18,7 @@ def clear_console():
     os.system("cls")
 
 if __name__ == "__main__":
+    logger_class = logger()
     while True:
         clear_console()
         print("1: Start monitoring\nExit: exit")
@@ -25,6 +27,7 @@ if __name__ == "__main__":
             if int(user_input) == 1:
                 clear_console()
                 if platform.system() == "Windows":
+                    logger_class.append_log("MONITORING_STARTED")
                     while True:
                         monitor_render(refresh_interval_per_sec)
                 elif int(user_input) == 2:

@@ -1,7 +1,7 @@
 import time
 
 def fetch_current_time():
-    return time.strftime("%Y-%m-%d|%H:%M:%S", time.localtime())
+    return time.strftime("%Y/%m/%d/%H:%M:%S", time.localtime())
 
 class logger:
     def __init__(self):
@@ -26,11 +26,3 @@ class logger:
                     file.write(f"{current_time}: {log_content}" + "\n")
             else:
                 pass
-
-
-## Add time stamps for the log_content param in the append_log function
-
-logger_class = logger()
-for x in range(10):
-    time.sleep(1)
-    logger_class.append_log("test")
