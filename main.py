@@ -14,7 +14,7 @@ def monitor_render(refresh_interval):
     print(f"CPU: {cpu.get_cpu_usage()}%")
     print(f"RAM: Currently using {ram.get_ram_stats()['used']} GB of RAM out of {ram.get_ram_stats()['total']} GB available.")
     print(f"Currently using {disk.get_disk_stats()['used']} GB of disk space out of {disk.get_disk_stats()['total']} GB available, with {disk.get_disk_stats()['free']} GB free.")
-    move_console_cursor_up(3)
+    move_console_cursor_up(100)
 
 def clear_console():
     os.system("cls")
@@ -36,9 +36,11 @@ if __name__ == "__main__":
                     print("pressed 2")
         except KeyboardInterrupt:
             clear_console()
+            logger_class.append_log("EXITED")
             exit()
         except:
             if user_input.lower() == "exit":
+                logger_class.append_log("EXITED")
                 exit()
             else:
                 pass
