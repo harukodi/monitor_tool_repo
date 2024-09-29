@@ -1,4 +1,6 @@
-from classes import cpu, ram, disk
+from disk import disk
+from cpu import cpu
+from ram import ram
 from vars import refresh_interval_per_sec
 from logger import logger
 import time, os, sys, platform
