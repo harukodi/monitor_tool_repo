@@ -1,17 +1,12 @@
 import psutil
 import time
 
-alarms = [
-    (20, "Low CPU Alarm"),
-    (30, "Medium CPU Alarm"),
-    (50, "High CPU Alarm"),
-    (70, "Critical CPU Alarm")
-]
+alarms = []
 
 current_alarm_threshold = None
 
 def check_current_cpu_percentage():
-    return psutil.cpu_percent(interval=1)  # Returns CPU usage over 1 second
+    return psutil.cpu_percent(interval=1)
 
 def trigger_alarm(threshold):
     global current_alarm_threshold
@@ -50,8 +45,5 @@ def append_alarm(threshold, message):
     alarms.append((threshold, message))
     print(f"Alarm added: {message} at {threshold}%")
 
-# Example usage: append a new alarm
-append_alarm(90, "Critical High CPU Alarm")
 
-# Start monitoring CPU usage
 monitor_cpu()
