@@ -1,7 +1,7 @@
 import time
 
 def fetch_current_time():
-    return time.strftime("%Y/%m/%d/%H:%M:%S", time.localtime())
+    return time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime())
 
 class logger:
     def __init__(self):
