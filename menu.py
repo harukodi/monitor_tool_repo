@@ -3,6 +3,7 @@ from cpu import cpu
 from ram import ram
 from vars import refresh_interval_per_sec
 from logger import logger
+from cpu_alarm import append_cpu_alarm
 import time, os, sys, platform
 
 logger_class = logger()
@@ -27,14 +28,19 @@ def alarm_selection():
     print("3: Add ram alarm")
     alarm_input_type = input("Alarm selection: ")
     if int(alarm_input_type) == 1:
-        logger_class.append_log("CPU ALARM ADDED")
+        cpu_threshold_input = input("CPU threshold 1-100: ")
+        cpu_alarm_name = input("CPU alarm name: ")
+        append_cpu_alarm(cpu_threshold_input, cpu_alarm_name)
+        logger_class.append_log("cpu_alarm_added")
+    elif int(alarm_input_type) == 2:
+        pass
         
 def menu_selections():
     global user_input
     clear_console()
     print("1: Start monitoring")
     print("2: Add Alarms")
-    print("Exit: Exit")
+    print("5: Exit")
     user_input = input("Selection: ")
     if int(user_input) == 1:
         clear_console()
@@ -44,6 +50,9 @@ def menu_selections():
     elif int(user_input) == 2:
         clear_console()
         alarm_selection()
+    elif int(user_input) == 5:
+        logger_class.append_log("EXITED")
+        exit()
 
 def start_menu():
     time.sleep(1)
@@ -54,7 +63,3 @@ def start_menu():
             clear_console()
             logger_class.append_log("EXITED")
             exit()
-        except:
-            if user_input.lower() == "exit":
-                logger_class.append_log("EXITED")
-                exit()

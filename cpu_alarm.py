@@ -17,7 +17,6 @@ def trigger_alarm(threshold):
 
 def reset_alarm():
     global current_alarm_threshold
-    print("CPU usage dropped below all thresholds. Resetting alarms.")
     current_alarm_threshold = None
 
 def monitor_cpu():
@@ -25,7 +24,6 @@ def monitor_cpu():
 
     while True:
         cpu_usage = check_current_cpu_percentage()
-        print(f"Current CPU Usage: {cpu_usage}%")
 
         sorted_alarms = sorted(alarms, key=lambda x: x[0], reverse=True)
 
@@ -41,9 +39,7 @@ def monitor_cpu():
 
         time.sleep(1)
 
-def append_alarm(threshold, message):
+def append_cpu_alarm(threshold, message):
     alarms.append((threshold, message))
     print(f"Alarm added: {message} at {threshold}%")
-
-
-monitor_cpu()
+    time.sleep(1)
