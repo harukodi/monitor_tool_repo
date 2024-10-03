@@ -4,7 +4,7 @@ from ram import ram
 from vars import refresh_interval_per_sec
 from logger import logger
 from cpu_alarm import append_cpu_alarm
-from cpu_alarm import alarms
+from cpu_alarm import cpu_alarms
 import time, os, sys, platform, keyboard
 
 logger_class = logger()
@@ -30,7 +30,7 @@ def alarm_selection():
     alarm_input_type = input("Alarm selection: ")
     if int(alarm_input_type) == 1:
         clear_console()
-        cpu_threshold_input = input("CPU threshold 1-100: ")
+        cpu_threshold_input = int(input("CPU threshold 1-100: "))
         cpu_alarm_name = input("CPU alarm name: ")
         append_cpu_alarm(cpu_threshold_input, cpu_alarm_name)
         logger_class.append_log("cpu_alarm_added")
@@ -44,29 +44,35 @@ def menu_selections():
     print("2: Add Alarms")
     print("3: Show configured alarms")
     print("5: Exit")
+    print("num + enter to make a selection")
+    print("Press enter to clear console")
     user_input = input("Selection: ")
+    
     if int(user_input) == 1:
         clear_console()
         logger_class.append_log("MONITORING_STARTED")
         while True:
             monitor_render(refresh_interval_per_sec)
+            
     elif int(user_input) == 2:
         clear_console()
         alarm_selection()
+        
     elif int(user_input) == 3:
         clear_console()
-        if len(alarms) != 0:
-            for alarm in alarms:
+        if len(cpu_alarms) != 0:
+            for cpu_alarm in cpu_alarms:
                 # Showing alarms for cpu where alarm[1] gets the name of the alarm and alarm[0] gets the threshold
-                print(f"{alarm[1]}: {alarm[0]}%")
+                print(f"{cpu_alarm[1]}: {cpu_alarm[0]}%")
         else:
             print("No alarms have been configured")
-        print("press B to go back")
+        print("press B and then enter to go back")
         while True:
             if keyboard.read_key() == "b":
+                keyboard.wait("enter")
                 clear_console()
                 break
-
+    
     elif int(user_input) == 5:
         logger_class.append_log("EXITED")
         exit()
@@ -76,6 +82,8 @@ def start_menu():
     while True:
         try:
             menu_selections()
+        except ValueError:
+            pass
         except KeyboardInterrupt:
             clear_console()
             logger_class.append_log("EXITED")
