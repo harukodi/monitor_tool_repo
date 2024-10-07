@@ -82,6 +82,7 @@ def menu_selections():
                 break
     
     elif input_selection_win == "5":
+        clear_console()
         logger_class.append_log("EXITED")
         exit()
 
