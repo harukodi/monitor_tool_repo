@@ -17,12 +17,9 @@ class logger:
                 with open(self.path, "x") as file:
                     current_time = fetch_current_time()
                     file.write(f"{current_time}: {log_content}" + "\n")
-            else:
-                pass
+                    
         except FileExistsError:
             if self.logger == True:
                 with open(self.path, "a") as file:
                     current_time = fetch_current_time()
                     file.write(f"{current_time}: {log_content}" + "\n")
-            else:
-                pass
