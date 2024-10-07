@@ -5,7 +5,7 @@ def fetch_current_time():
 
 class logger:
     def __init__(self):
-        self.logger = True
+        self.logger = False
         self.current_time = time.strftime("%Y_%m_%d %H_%M_%S", time.localtime())
         self.path = f"./log-{self.current_time}"
         if self.logger != True:
