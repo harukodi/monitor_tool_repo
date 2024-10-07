@@ -13,14 +13,14 @@ def trigger_alarm(threshold):
     global current_alarm_threshold
 
     if current_alarm_threshold is None or threshold > current_alarm_threshold:
-        print(f"\nAlarm Triggered: {dict(ram_alarms)[threshold]} at {threshold}% CPU usage!")
+        print(f"\nAlarm Triggered: {dict(ram_alarms)[threshold]} at {threshold}% RAM usage!")
         current_alarm_threshold = threshold
 
 def reset_alarm():
     global current_alarm_threshold
     current_alarm_threshold = None
 
-def monitor_cpu_alarm():
+def monitor_ram_alarm():
     global current_alarm_threshold
 
     while True:
@@ -46,5 +46,5 @@ def append_ram_alarm(threshold, message):
     time.sleep(1.2)
     
 def start_ram_alarm_thread():
-    cpu_alarm_thread = threading.Thread(target=monitor_cpu_alarm, daemon=True)
+    cpu_alarm_thread = threading.Thread(target=monitor_ram_alarm, daemon=True)
     cpu_alarm_thread.start()
