@@ -18,12 +18,11 @@ def monitor_render():
         while True:
             time.sleep(0.1)
             print("SYSTEM MONITOR")
-            print("-" * 40)
+            print("-" * 14)
             print(f"CPU: {cpu.get_cpu_usage()}%")
             print(f"RAM: Currently using {ram.get_ram_stats()['used']} GB of RAM out of {ram.get_ram_stats()['total']} GB available.")
             print(f"Currently using {disk.get_disk_stats()['used']} GB of disk space out of {disk.get_disk_stats()['total']} GB available, with {disk.get_disk_stats()['free']} GB free.")
-            print("-" * 40)
-            print("Press CTRL + C to go back")
+            print("\nPress CTRL + C to go back")
             move_console_cursor_up(200)
     except KeyboardInterrupt:
         pass
@@ -92,10 +91,10 @@ def menu_selections():
     global user_input
     clear_console()
     print("-" * 40)
-    print("1. Start Monitoring")
-    print("2. Add Alarms")
-    print("3. Show Configured Alarms")
-    print("5. Exit")
+    print("1: Start Monitoring")
+    print("2: Add Alarms")
+    print("3: Show Configured Alarms")
+    print("4: Exit")
     print("-" * 40)
     print("\nPress ENTER to clear console.")
 
@@ -103,7 +102,7 @@ def menu_selections():
     if input_selection_win == "1":
         clear_console()
         logger_class.append_log("MONITORING_STARTED")
-        monitor_render(refresh_interval_per_sec)
+        monitor_render()
             
     elif input_selection_win == "2":
         clear_console()
@@ -113,7 +112,7 @@ def menu_selections():
         clear_console()
         show_configured_alarms()
 
-    elif input_selection_win == "5":
+    elif input_selection_win == "4":
         clear_console()
         logger_class.append_log("EXITED")
         exit()
