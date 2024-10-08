@@ -9,27 +9,36 @@ import time, os, sys, platform, keyboard, msvcrt
 
 logger_class = logger()
 
-def monitor_render(refresh_interval):
+def monitor_render():
     try:
         def move_console_cursor_up(lines):
             sys.stdout.write(f"\033[{lines}A")
+            sys.stdout.write("\033[?25l")
             sys.stdout.flush()
         while True:
-            time.sleep(refresh_interval)
+            time.sleep(0.1)
+            print("SYSTEM MONITOR")
+            print("-" * 40)
             print(f"CPU: {cpu.get_cpu_usage()}%")
             print(f"RAM: Currently using {ram.get_ram_stats()['used']} GB of RAM out of {ram.get_ram_stats()['total']} GB available.")
             print(f"Currently using {disk.get_disk_stats()['used']} GB of disk space out of {disk.get_disk_stats()['total']} GB available, with {disk.get_disk_stats()['free']} GB free.")
-            move_console_cursor_up(100)
+            print("-" * 40)
+            print("Press CTRL + C to go back")
+            move_console_cursor_up(200)
     except KeyboardInterrupt:
         pass
 
 def clear_console():
     os.system("cls")
 
+def hide_console_cursor():
+    sys.stdout.write("\033[?25l")
+    sys.stdout.flush()
+    
 def show_configured_alarms():
     try:
         if len(cpu_alarms) != 0 or len(cpu_alarms) != 0:
-            print("Alarms")
+            print("ALARMS")
             print("-" * 40)
             if len(cpu_alarms) != 0:
                 for cpu_alarm in cpu_alarms:
@@ -51,6 +60,7 @@ def show_configured_alarms():
             
     if len(cpu_alarms) == 0 and len(ram_alarms) == 0:
         print("No alarms have been configured\nReturning to the main menu...")
+        hide_console_cursor()
         time.sleep(2.2)
 
 def alarm_selection():
