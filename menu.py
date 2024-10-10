@@ -97,6 +97,7 @@ def menu_selections():
     print("4: Exit")
     print("-" * 40)
     print("\nPress ENTER to clear console.")
+    hide_console_cursor()
 
     input_selection_win = msvcrt.getch().decode('utf-8')
     if input_selection_win == "1":
