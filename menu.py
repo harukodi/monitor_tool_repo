@@ -81,6 +81,7 @@ def alarm_selection():
             append_ram_alarm(ram_threshold_input, ram_alarm_name)
             logger_class.append_log("ram_alarm_added")
     except ValueError:
+        clear_console()
         print("Must be a number between 1-100\nReturning to the main menu...")
         time.sleep(2.2)
         pass
