@@ -10,6 +10,7 @@ class logger:
         self.path = f"./log-{self.current_time}"
         if self.logger != True:
             print("logger has been disabled")
+            time.sleep(1)
     
     def append_log(self, log_content):
         try:

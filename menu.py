@@ -34,6 +34,10 @@ def clear_console():
 def hide_console_cursor():
     sys.stdout.write("\033[?25l")
     sys.stdout.flush()
+    
+def show_console_cursor():
+    sys.stdout.write("\033[?25h")
+    sys.stdout.flush()
 
 def wait_function_for_ctrl_c():
     try:
@@ -78,18 +82,21 @@ def alarm_selection():
         input_selection_win = msvcrt.getch().decode('utf-8')
         if input_selection_win == "1":
             clear_console()
+            show_console_cursor()
             cpu_threshold_input = int(input("CPU usage threshold 1-100: "))
             cpu_alarm_name = input("CPU alarm name: ")
             append_cpu_alarm(cpu_threshold_input, cpu_alarm_name)
             logger_class.append_log("cpu_alarm_added")
         elif input_selection_win == "2":
             clear_console()
+            show_console_cursor()
             ram_threshold_input = int(input("RAM usage threshold 1-100: "))
             ram_alarm_name = input("RAM alarm name: ")
             append_ram_alarm(ram_threshold_input, ram_alarm_name)
             logger_class.append_log("ram_alarm_added")
         elif input_selection_win == "3":
             clear_console()
+            show_console_cursor()
             disk_threshold_input = int(input("DISK usage threshold 1-100: "))
             disk_alarm_name = input("DISK alarm name: ")
             append_disk_alarm(disk_threshold_input, disk_alarm_name)
@@ -98,7 +105,8 @@ def alarm_selection():
         clear_console()
         print("Must be a number between 1-100\nReturning to the main menu...")
         time.sleep(2.2)
-        pass
+    except KeyboardInterrupt:
+        clear_console()
         
         
 def menu_selections():
