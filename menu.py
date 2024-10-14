@@ -22,7 +22,7 @@ def monitor_render():
             print("-" * 14)
             print(f"CPU: {cpu.get_cpu_usage()}%")
             print(f"RAM: Currently using {ram.get_ram_stats()['used']} GB of RAM out of {ram.get_ram_stats()['total']} GB available.")
-            print(f"Currently using {disk.get_disk_stats()['used']} GB of disk space out of {disk.get_disk_stats()['total']} GB available, with {disk.get_disk_stats()['free']} GB free.")
+            print(f"DISK: Currently using {disk.get_disk_stats()['used']} GB of disk space out of {disk.get_disk_stats()['total']} GB available, with {disk.get_disk_stats()['free']} GB free.")
             print("\nPress CTRL + C to go back")
             move_console_cursor_up(200)
     except KeyboardInterrupt:
