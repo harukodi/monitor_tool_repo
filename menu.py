@@ -7,6 +7,9 @@ from cpu_alarm import append_cpu_alarm, cpu_alarms
 from ram_alarm import append_ram_alarm, ram_alarms
 from disk_alarm import append_disk_alarm, disk_alarms
 import time, os, sys, platform, keyboard, msvcrt
+from cpu_alarm import start_cpu_alarm_thread
+from ram_alarm import start_ram_alarm_thread
+from disk_alarm import start_disk_alarm_thread
 
 logger_class = logger()
 
@@ -127,6 +130,9 @@ def menu_selections():
             case "1":
                 clear_console()
                 logger_class.append_log("MONITORING_STARTED")
+                start_cpu_alarm_thread()
+                start_ram_alarm_thread()
+                start_disk_alarm_thread()
                 monitor_render()
             case "2":
                 clear_console()
