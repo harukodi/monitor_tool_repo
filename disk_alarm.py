@@ -6,6 +6,7 @@ import sys
 disk_alarms = []
 
 current_alarm_threshold = None
+enable_disk_alarm = False
 
 def check_current_disk_percentage():
     return disk.get_disk_stats()['percent']
@@ -23,23 +24,24 @@ def reset_alarm():
 
 def monitor_disk_alarm():
     global current_alarm_threshold
-
     while True:
-        cpu_usage = check_current_disk_percentage()
+        if enable_disk_alarm == True:
+            disk_usage = check_current_disk_percentage()
+            sorted_alarms = sorted(disk_alarms, key=lambda x: x[0], reverse=True)
+            triggered = False
+            
+            for threshold, message in sorted_alarms:
+                if disk_usage >= threshold:
+                    trigger_alarm(threshold)
+                    triggered = True
+                    break
+    
+            if not triggered and current_alarm_threshold is not None:
+                reset_alarm()
 
-        sorted_alarms = sorted(disk_alarms, key=lambda x: x[0], reverse=True)
-
-        triggered = False
-        for threshold, message in sorted_alarms:
-            if cpu_usage >= threshold:
-                trigger_alarm(threshold)
-                triggered = True
-                break
-
-        if not triggered and current_alarm_threshold is not None:
-            reset_alarm()
-
-        time.sleep(1)
+            time.sleep(1)
+        else: 
+            time.sleep(1)
 
 def append_disk_alarm(threshold, message):
     disk_alarms.append((threshold, message))

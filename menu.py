@@ -7,10 +7,9 @@ from cpu_alarm import append_cpu_alarm, cpu_alarms
 from ram_alarm import append_ram_alarm, ram_alarms
 from disk_alarm import append_disk_alarm, disk_alarms
 import time, os, sys, platform, keyboard, msvcrt
-from cpu_alarm import start_cpu_alarm_thread
-from ram_alarm import start_ram_alarm_thread
-from disk_alarm import start_disk_alarm_thread
-
+from cpu_alarm import enable_cpu_alarm
+from ram_alarm import enable_ram_alarm
+from disk_alarm import enable_disk_alarm
 logger_class = logger()
 
 def monitor_render():
@@ -111,16 +110,29 @@ def alarm_selection():
         time.sleep(2.2)
     except KeyboardInterrupt:
         clear_console()
-        
-        
+  
+def start_alarm_monitors():
+    global enable_cpu_alarm, enable_ram_alarm, enable_disk_alarm
+    enable_cpu_alarm = True
+    enable_ram_alarm = True
+    enable_disk_alarm = True
+    print("ALARM MONITOR STARTED")
+    print("-" * 21)
+    print("Press CTRL + C to go back")
+    wait_function_for_ctrl_c()
+    enable_cpu_alarm = False
+    enable_ram_alarm = False
+    enable_disk_alarm = False
+
 def menu_selections():
     global user_input
     clear_console()
     print("-" * 40)
     print("1: Start Monitoring")
     print("2: Add Alarms")
-    print("3: Show Configured Alarms")
-    print("4: Exit")
+    print("3: Start Alarm Monitor")
+    print("4: Show Configured Alarms")
+    print("5: Exit")
     print("-" * 40)
     print("\nPress ENTER to clear console.")
     hide_console_cursor()
@@ -130,17 +142,17 @@ def menu_selections():
             case "1":
                 clear_console()
                 logger_class.append_log("MONITORING_STARTED")
-                start_cpu_alarm_thread()
-                start_ram_alarm_thread()
-                start_disk_alarm_thread()
                 monitor_render()
             case "2":
                 clear_console()
                 alarm_selection()
             case "3":
                 clear_console()
-                show_configured_alarms()
+                start_alarm_monitors()
             case "4":
+                clear_console()
+                show_configured_alarms()
+            case "5":
                 clear_console()
                 logger_class.append_log("EXITED")
                 exit()
