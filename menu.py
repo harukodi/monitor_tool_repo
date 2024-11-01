@@ -116,6 +116,7 @@ def start_alarm_monitors():
     enable_cpu_alarm.set()
     enable_ram_alarm.set()
     enable_disk_alarm.set()
+    logger_class.append_log("ALARM_MONITORING_STARTED")
     print("ALARM MONITOR STARTED")
     print("-" * 21)
     print("Press CTRL + C to go back")
