@@ -10,8 +10,10 @@ class disk:
         total_disk_size_gb_rounded = round(total_disk_size_gb, 1)
         used_disk_gb_rounded = round(used_disk_gb, 1)
         free_disk_gb_rounded = round(free_disk_gb, 1)
+        disk_percent = disk.percent
         return {
             'total': total_disk_size_gb_rounded,
             'used': used_disk_gb_rounded,
-            'free': free_disk_gb_rounded
+            'free': free_disk_gb_rounded,
+            'percent': disk_percent
             }
