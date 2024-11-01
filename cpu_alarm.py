@@ -2,10 +2,10 @@ import psutil
 import time
 import threading
 import sys
-cpu_alarms = []
 
+cpu_alarms = []
 current_alarm_threshold = None
-enable_cpu_alarm = False
+enable_cpu_alarm = threading.Event()
 
 def check_current_cpu_percentage():
     return psutil.cpu_percent(interval=1)
@@ -25,7 +25,7 @@ def monitor_cpu_alarm():
     global current_alarm_threshold
 
     while True:
-        if enable_cpu_alarm == True:
+        if enable_cpu_alarm.is_set():
             cpu_usage = check_current_cpu_percentage()
             sorted_alarms = sorted(cpu_alarms, key=lambda x: x[0], reverse=True)
             triggered = False

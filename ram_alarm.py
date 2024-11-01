@@ -5,7 +5,7 @@ import sys
 ram_alarms = []
 
 current_alarm_threshold = None
-enable_ram_alarm = False
+enable_ram_alarm = threading.Event()
 
 def check_current_ram_percentage():
     return pul.virtual_memory().percent
@@ -22,9 +22,9 @@ def reset_alarm():
     current_alarm_threshold = None
 
 def monitor_ram_alarm():
-    global current_alarm_threshold
+    global current_alarm_threshold, enable_ram_alarm
     while True:
-        if enable_ram_alarm == True:
+        if enable_ram_alarm.is_set():
             ram_usage = check_current_ram_percentage()
             sorted_alarms = sorted(ram_alarms, key=lambda x: x[0], reverse=True)
             triggered = False
@@ -40,7 +40,6 @@ def monitor_ram_alarm():
             time.sleep(1)
         else:
             time.sleep(1)
-
 def append_ram_alarm(threshold, message):
     ram_alarms.append((threshold, message))
     print(f"Alarm added: {message} at {threshold}%")

@@ -3,10 +3,10 @@ import time
 import threading
 from disk import disk
 import sys
-disk_alarms = []
 
+disk_alarms = []
 current_alarm_threshold = None
-enable_disk_alarm = False
+enable_disk_alarm = threading.Event()
 
 def check_current_disk_percentage():
     return disk.get_disk_stats()['percent']
@@ -25,7 +25,7 @@ def reset_alarm():
 def monitor_disk_alarm():
     global current_alarm_threshold
     while True:
-        if enable_disk_alarm == True:
+        if enable_disk_alarm.is_set():
             disk_usage = check_current_disk_percentage()
             sorted_alarms = sorted(disk_alarms, key=lambda x: x[0], reverse=True)
             triggered = False

@@ -113,16 +113,16 @@ def alarm_selection():
   
 def start_alarm_monitors():
     global enable_cpu_alarm, enable_ram_alarm, enable_disk_alarm
-    enable_cpu_alarm = True
-    enable_ram_alarm = True
-    enable_disk_alarm = True
+    enable_cpu_alarm.set()
+    enable_ram_alarm.set()
+    enable_disk_alarm.set()
     print("ALARM MONITOR STARTED")
     print("-" * 21)
     print("Press CTRL + C to go back")
     wait_function_for_ctrl_c()
-    enable_cpu_alarm = False
-    enable_ram_alarm = False
-    enable_disk_alarm = False
+    enable_cpu_alarm.clear()
+    enable_ram_alarm.clear()
+    enable_disk_alarm.clear()
 
 def menu_selections():
     global user_input
